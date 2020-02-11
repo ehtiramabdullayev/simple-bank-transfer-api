@@ -34,12 +34,12 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
-    public boolean saveAccount(Account account) throws AccountAlreadyExistsException,InsufficientFundsException {
-        validateId(account.getNumber());
-        if (account.getBalance().compareTo(BigDecimal.ZERO) < 0){
+    public boolean saveAccount(int accountNumber, BigDecimal amount) throws AccountAlreadyExistsException,InsufficientFundsException {
+        validateId(accountNumber);
+        if (amount.compareTo(BigDecimal.ZERO) < 0){
             throw new InsufficientFundsException("You can't create this account with this fund!");
         }
-        accounts.put(account.getNumber(), account);
+        accounts.put(accountNumber, new Account(accountNumber,amount));
         return true;
     }
 

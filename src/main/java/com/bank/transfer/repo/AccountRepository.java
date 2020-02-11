@@ -5,6 +5,7 @@ import com.bank.transfer.exception.AccountNotFoundException;
 import com.bank.transfer.exception.InsufficientFundsException;
 import com.bank.transfer.models.Account;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public interface AccountRepository {
     Account getAccountByNumber(int accountNumber) throws AccountNotFoundException;
-    boolean saveAccount(Account account) throws AccountAlreadyExistsException, InsufficientFundsException;
+    boolean saveAccount(int accountNumber, BigDecimal amount) throws AccountAlreadyExistsException, InsufficientFundsException;
     List<Account> getAllAccounts();
     void deleteAllAccounts();
 
