@@ -35,8 +35,6 @@ public class Main {
         get("/accounts", operationsController::getAllAccounts);
         get("/accounts/", operationsController::getAllAccounts);
         get("/accounts/:number", operationsController::getAccountById);
-//        delete("/accounts/:id", accountController::deleteAccountById);
-//        post("/accounts/:id/transactions", accountController::createAccountTransaction);
-//        get("/accounts/:id/transactions", accountController::getAllTransactionsOfAccount);
+        post("/accounts/transfer", operationsController::makeTransfer);
     }
 }

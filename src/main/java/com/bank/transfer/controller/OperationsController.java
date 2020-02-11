@@ -16,6 +16,6 @@ public interface OperationsController {
 
     String deleteAllAccounts(Request request, Response response);
 
-    String makeTransfer(Request request, Response response) throws Exception;
+    String makeTransfer(Request request, Response response);
 //
 }

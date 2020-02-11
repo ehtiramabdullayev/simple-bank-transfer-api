@@ -1,6 +1,7 @@
 package com.bank.transfer.controller.impl;
 
 import com.bank.transfer.api.model.request.AccountRequest;
+import com.bank.transfer.api.model.request.TransferRequest;
 import com.bank.transfer.api.model.response.GenericResponse;
 import com.bank.transfer.controller.OperationsController;
 import com.bank.transfer.models.Account;
@@ -63,7 +64,15 @@ public class OperationsControllerImpl implements OperationsController {
     }
 
     @Override
-    public String makeTransfer(Request request, Response response) throws Exception {
-        return null;
+    public String makeTransfer(Request request, Response response) {
+        TransferRequest transferRequest = jsonParsingService.fromJSonToPOJO(request.body(), TransferRequest.class);
+
+        GenericResponse genericResponse = transferService.doTransfer(transferRequest.getFromAccountNumber(),
+                                                                     transferRequest.getToAccountNumber(),
+                                                                     transferRequest.getAmount());
+        // setting here the response status code
+        response.status(genericResponse.getResponse().getStatus());
+        return jsonParsingService.toJsonPOJO(genericResponse);
+
     }
 }

@@ -1,5 +1,7 @@
 package com.bank.transfer.service.impl;
 
+import com.bank.transfer.api.model.response.GenericResponse;
+import com.bank.transfer.api.model.response.Response;
 import com.bank.transfer.exception.AccountNotFoundException;
 import com.bank.transfer.exception.InsufficientFundsException;
 import com.bank.transfer.models.Account;
@@ -22,14 +24,22 @@ public class TransferServiceImpl implements TransferService {
     }
 
     @Override
-    public void doTransfer(int fromAccountNumber, int toAccountNumber, BigDecimal transferAmount) throws AccountNotFoundException, InsufficientFundsException {
-        Account fromAccount = accountRepository.getAccountByNumber(fromAccountNumber);
-        Account toAccount = accountRepository.getAccountByNumber(toAccountNumber);
+    public GenericResponse doTransfer(int fromAccountNumber, int toAccountNumber, BigDecimal transferAmount) {
+        GenericResponse<Account> genericResponse;
+        try {
+            Account fromAccount = accountRepository.getAccountByNumber(fromAccountNumber);
+            Account toAccount = accountRepository.getAccountByNumber(toAccountNumber);
 
-        if (transferAmount.compareTo(fromAccount.getBalance()) > 0)
-            throw new InsufficientFundsException("Money in your account is not enough for this transaction!");
-        transfer(fromAccount, toAccount, transferAmount);
+            if (transferAmount.compareTo(fromAccount.getBalance()) > 0)
+                throw new InsufficientFundsException("Money in your account is not enough for this transaction!");
+            transfer(fromAccount, toAccount, transferAmount);
 
+            genericResponse = new GenericResponse<>(new Response(200, "SUCCESS"));
+
+        } catch (AccountNotFoundException | InsufficientFundsException e) {
+            genericResponse = new GenericResponse<>(new Response(400, e.getMessage()));
+        }
+        return genericResponse;
     }
 
 
