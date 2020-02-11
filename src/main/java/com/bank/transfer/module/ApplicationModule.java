@@ -5,10 +5,10 @@ import com.bank.transfer.controller.impl.OperationsControllerImpl;
 import com.bank.transfer.repo.AccountRepository;
 import com.bank.transfer.repo.impl.AccountRepositoryImpl;
 import com.bank.transfer.service.AccountService;
-import com.bank.transfer.service.JsonParser;
+import com.bank.transfer.service.JsonParsingService;
 import com.bank.transfer.service.TransferService;
 import com.bank.transfer.service.impl.AccountServiceImpl;
-import com.bank.transfer.service.impl.JsonParserImpl;
+import com.bank.transfer.service.impl.JsonParsingServiceImpl;
 import com.bank.transfer.service.impl.TransferServiceImpl;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
@@ -27,6 +27,6 @@ public class ApplicationModule extends AbstractModule {
         bind(AccountService.class).to(AccountServiceImpl.class).in(Singleton.class);
         bind(TransferService.class).to(TransferServiceImpl.class).in(Singleton.class);
         bind(OperationsController.class).to(OperationsControllerImpl.class).in(Singleton.class);
-        bind(JsonParser.class).to(JsonParserImpl.class).in(Singleton.class);
+        bind(JsonParsingService.class).to(JsonParsingServiceImpl.class).in(Singleton.class);
     }
 }
