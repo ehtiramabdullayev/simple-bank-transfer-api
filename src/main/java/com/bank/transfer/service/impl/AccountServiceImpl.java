@@ -41,7 +41,7 @@ public class AccountServiceImpl implements AccountService<Account> {
     public GenericResponse<Account> saveAccount(int accountNumber, BigDecimal amount) {
         GenericResponse<Account> genericResponse;
         try {
-            accountRepository.saveAccount(new Account(accountNumber, amount));
+            accountRepository.saveAccount(accountNumber, amount);
             genericResponse = new GenericResponse<>(new Response(200, "SUCCESS"));
         } catch (AccountAlreadyExistsException | InsufficientFundsException e) {
             genericResponse = new GenericResponse<>(new Response(400, e.getMessage()));
