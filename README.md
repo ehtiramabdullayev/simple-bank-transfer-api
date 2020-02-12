@@ -92,7 +92,7 @@ Example Response
 ````
 localhost:5555/accounts/1
 ````
-Example Response (No Response body)
+Example Response
 
 ````
 {
