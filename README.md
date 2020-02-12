@@ -87,10 +87,10 @@ Example Response
 }
 ````
 ---
-**GET** /accounts/number - get the account of the given account number 
+**GET** /accounts/:number - get the account of the given account number 
 
 ````
-localhost:5555/accounts?id=1
+localhost:5555/accounts/1
 ````
 Example Response (No Response body)
 
