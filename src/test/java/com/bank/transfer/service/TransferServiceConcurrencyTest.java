@@ -67,7 +67,7 @@ public class TransferServiceConcurrencyTest {
         Thread[] operations = new Thread[100];
 
         for (int i = 0; i < operations.length; i++) {
-            operations[i] = new Thread(() -> doTenThousandTransfers());
+            operations[i] = new Thread(this::doTenThousandTransfers);
             operations[i].start();
         }
 
