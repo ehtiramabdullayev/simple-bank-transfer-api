@@ -6,6 +6,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import spark.ExceptionHandler;
 
 import static spark.Spark.*;
 
@@ -21,6 +22,8 @@ public class Main {
 
     public static void main(String[] args) {
         port(MAIN_PORT);
+        before((request, response) -> response.type("application/json"));
+//        exceptionHandler();
         initRoutes();
     }
 
@@ -28,7 +31,6 @@ public class Main {
     public static void initRoutes() {
         Injector injector = Guice.createInjector(new ApplicationModule());
         OperationsController operationsController = injector.getInstance(OperationsController.class);
-//
         get("/hello", (req, res) -> "Hello World");
         post("/accounts", operationsController::createAccount);
         delete("/accounts", operationsController::deleteAllAccounts);

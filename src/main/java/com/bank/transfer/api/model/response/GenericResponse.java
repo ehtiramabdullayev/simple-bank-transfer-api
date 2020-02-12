@@ -5,26 +5,26 @@ package com.bank.transfer.api.model.response;
  * @project bank-transfer
  */
 public class GenericResponse<T> {
-    private final T t;
+    private final T body;
     private final Response response;
 
-    public GenericResponse(T t, Response response) {
-        this.t = t;
+    public GenericResponse(T body, Response response) {
+        this.body = body;
         this.response = response;
     }
 
-    public GenericResponse(T t) {
-        this.t = t;
+    public GenericResponse(T body) {
+        this.body = body;
         this.response = new Response(200,"SUCCESS");
     }
 
     public GenericResponse(Response response) {
-        this.t = null;
+        this.body = null;
         this.response = response;
     }
 
     public T getT() {
-        return t;
+        return body;
     }
 
     public Response getResponse() {

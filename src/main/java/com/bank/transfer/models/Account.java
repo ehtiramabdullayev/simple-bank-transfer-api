@@ -9,16 +9,16 @@ import java.util.Objects;
  */
 public class Account {
 
-    private final int number;
+    private final int accountNumber;
     private BigDecimal balance;
 
-    public Account(final int number, final BigDecimal balance) {
-        this.number = number;
+    public Account(final int accountNumber, final BigDecimal balance) {
+        this.accountNumber = accountNumber;
         this.balance = balance;
     }
 
-    public int getNumber() {
-        return number;
+    public int getAccountNumber() {
+        return accountNumber;
     }
 
     public BigDecimal getBalance() {
@@ -37,7 +37,7 @@ public class Account {
     @Override
     public String toString() {
         return "Account{" +
-                "number=" + number +
+                "number=" + accountNumber +
                 ", balance=" + balance +
                 '}';
     }
@@ -48,12 +48,12 @@ public class Account {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Account account = (Account) o;
-        return number == account.number &&
+        return accountNumber == account.accountNumber &&
                 balance.equals(account.balance);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(number, balance);
+        return Objects.hash(accountNumber, balance);
     }
 }

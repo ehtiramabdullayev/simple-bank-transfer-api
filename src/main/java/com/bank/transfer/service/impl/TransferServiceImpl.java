@@ -10,6 +10,9 @@ import com.bank.transfer.service.TransferService;
 import com.google.inject.Inject;
 
 import java.math.BigDecimal;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author Ehtiram_Abdullayev on 2/10/2020
@@ -17,6 +20,8 @@ import java.math.BigDecimal;
  */
 public class TransferServiceImpl implements TransferService {
     private final AccountRepository accountRepository;
+    ReentrantLock lock = new ReentrantLock();
+    Executor executor = Executors.newSingleThreadExecutor();
 
     @Inject
     public TransferServiceImpl(AccountRepository accountRepository) {
@@ -32,7 +37,9 @@ public class TransferServiceImpl implements TransferService {
 
             if (transferAmount.compareTo(fromAccount.getBalance()) > 0)
                 throw new InsufficientFundsException("Money in your account is not enough for this transaction!");
-            transfer(fromAccount, toAccount, transferAmount);
+
+            Runnable runnable = transfer(fromAccount, toAccount, transferAmount);
+            executor.execute(runnable);
 
             genericResponse = new GenericResponse<>(new Response(200, "SUCCESS"));
 
@@ -43,18 +50,19 @@ public class TransferServiceImpl implements TransferService {
     }
 
 
-    private void transfer(Account fromAccount, Account toAccount, BigDecimal transferAmount) {
-        int fromHash = System.identityHashCode(fromAccount);
-        int toHash = System.identityHashCode(toAccount);
-
-        Integer lowId = (fromHash < toHash ? fromHash : toHash);
-        Integer highId = (fromHash < toHash ? toHash : fromHash);
-        synchronized (lowId) {
-            synchronized (highId) {
+    private Runnable transfer(Account fromAccount, Account toAccount, BigDecimal transferAmount) {
+        return () -> {
+            try {
+                lock.lock();
                 fromAccount.withdraw(transferAmount);
                 toAccount.addFunds(transferAmount);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                lock.unlock();
             }
-        }
+        };
     }
+
 
 }
