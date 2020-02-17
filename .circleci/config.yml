@@ -2,12 +2,11 @@ version: 2.1
 
 orbs:
   maven: circleci/maven@1.0.0
+  sonarcloud: sonarsource/sonarcloud@1.0.0
 
 workflows:
   maven_test:
     jobs:
-      - maven/test:
-          context: SonarCloud
-          #Analyze on SonarCloud
-          command: sonar:sonar verify
+      - maven/test
+      - sonarcloud/scan
 
