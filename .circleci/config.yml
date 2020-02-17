@@ -9,5 +9,5 @@ workflows:
       - maven/test:
           context: SonarCloud
           #Analyze on SonarCloud
-          command: mvn verify sonar:sonar
+          command: sonar:sonar verify
 
