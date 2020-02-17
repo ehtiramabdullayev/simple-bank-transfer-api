@@ -7,8 +7,7 @@ workflows:
   maven_test:
     jobs:
       - maven/test:
-         context: SonarCloud
-      - run:
-            name: Analyze on SonarCloud
-            command: mvn verify sonar:sonar
+          context: SonarCloud
+          #Analyze on SonarCloud
+          command: mvn verify sonar:sonar
 
