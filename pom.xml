@@ -11,7 +11,7 @@
         <sonar.projectKey>ehtiramabdullayev_simple-bank-transfer-api</sonar.projectKey>
         <sonar.organization>ehtiramabdullayev</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.java.binaries>target/classes</sonar.java.binaries>
+        <sonar.java.binaries>**/target/classes</sonar.java.binaries>
     </properties>
 
     <groupId>org.example</groupId>
