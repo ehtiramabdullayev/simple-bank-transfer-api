@@ -6,4 +6,9 @@ orbs:
 workflows:
   maven_test:
     jobs:
-      - maven/test # checkout, build, test, and upload test results
+      - maven/test:
+         context: SonarCloud
+      - run:
+            name: Analyze on SonarCloud
+            command: mvn verify sonar:sonar
+
