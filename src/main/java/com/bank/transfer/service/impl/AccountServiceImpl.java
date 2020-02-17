@@ -22,8 +22,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class AccountServiceImpl implements AccountService<Account> {
     private final AccountRepository accountRepository;
-    ReentrantLock lock = new ReentrantLock();
-    Executor executor = Executors.newSingleThreadExecutor();
+
 
     @Inject
     public AccountServiceImpl(AccountRepository accountRepository) {
@@ -46,14 +45,10 @@ public class AccountServiceImpl implements AccountService<Account> {
     public GenericResponse<Account> saveAccount(int accountNumber, BigDecimal amount) {
         GenericResponse<Account> genericResponse;
         try {
-            lock.lock();
             accountRepository.saveAccount(accountNumber, amount);
             genericResponse = new GenericResponse<>(new Response(200, "SUCCESS"));
         } catch (AccountAlreadyExistsException | InsufficientFundsException e) {
             genericResponse = new GenericResponse<>(new Response(400, e.getMessage()));
-        }
-        finally {
-            lock.unlock();
         }
         return genericResponse;
     }
