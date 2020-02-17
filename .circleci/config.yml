@@ -1,14 +1,17 @@
 version: 2.1
 
-orbs:
-  maven: circleci/maven@1.0.0
-  sonarcloud: sonarsource/sonarcloud@1.0.0
+jobs:
+  build:
+    docker:
+      - image: 'circleci/openjdk:11-jdk'
+    steps:
+      - checkout
+      - run:
+          name: Analyze on SonarCloud
+          command: mvn verify sonar:sonar
 
 workflows:
-  maven_test:
+  main:
     jobs:
-      - maven/test:
-          context: SonarCloud
-      - sonarcloud/scan
-
-
+      - build:
+          context: SonarCloudBankApi
