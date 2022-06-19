@@ -49,7 +49,7 @@ Example Request
 ````
 Example Response
 
-````
+````json
 {
     "response": {
         "status": 200,
@@ -68,7 +68,7 @@ localhost:5555/accounts
 
 Example Response
 
-````
+````json
 {
     "body": [
         {
@@ -94,7 +94,7 @@ localhost:5555/accounts/1
 ````
 Example Response
 
-````
+````json
 {
     "body": {
         "accountNumber": 1,
@@ -111,7 +111,7 @@ Example Response
 **POST** /accounts/transfer - creating a transfer between given accounts
 
 
-````
+````json
 {
 	"fromAccountNumber":2,
 	"toAccountNumber": 1,
@@ -120,7 +120,7 @@ Example Response
 ````
 Example Response
 
-````
+````json
 {
     "response": {
         "status": 200,
@@ -139,7 +139,7 @@ localhost:5555/accounts
 
 Example Response
 
-````
+````json
 {
     "response": {
         "status": 200,
