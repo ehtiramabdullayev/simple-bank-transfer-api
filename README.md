@@ -39,7 +39,7 @@ Run the project
 
 Example Request
 
-````
+````json
 {
     {
         "number": 1,
